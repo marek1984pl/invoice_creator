@@ -5,7 +5,7 @@
  * Time: 20:38
  */
 
-package pl.poligro.invoice_creator.company.entity;
+package pl.poligro.invoice_creator.company.domain;
 
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -23,7 +23,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Builder
 @Table(name = "COMPANY_CUSTOMER", schema = "B")
-public class CompanyEntity extends CustomerEntity {
+public class Company extends Customer {
 
     @Audited
     private String vatNumber;
@@ -32,7 +32,7 @@ public class CompanyEntity extends CustomerEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        CompanyEntity that = (CompanyEntity) o;
+        Company that = (Company) o;
 
         return Objects.equals(getId(), that.getId());
     }

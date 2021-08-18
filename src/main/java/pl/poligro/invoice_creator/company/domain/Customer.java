@@ -2,39 +2,44 @@
  * Copyright 2021 Marek Morawiec
  * User: marek
  * Date: 04.08.2021
- * Time: 20:55
+ * Time: 20:46
  */
 
-package pl.poligro.invoice_creator.company.entity;
+package pl.poligro.invoice_creator.company.domain;
 
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.envers.Audited;
+import pl.poligro.invoice_creator.basic_entity.BasicBusinessEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.MappedSuperclass;
 import java.util.Objects;
 
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
-@Entity
-@Audited
-@Table(name = "PRIVATE_CUSTOMER", schema = "B")
-public class PrivateCustomerEntity extends CustomerEntity {
+@MappedSuperclass
+public abstract class Customer extends BasicBusinessEntity {
+
+    @Audited
+    private String fullName;
+
+    @Audited
+    private String shortName;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        PrivateCustomerEntity that = (PrivateCustomerEntity) o;
+        Customer that = (Customer) o;
 
         return Objects.equals(getId(), that.getId());
     }
 
     @Override
     public int hashCode() {
-        return 2138336056;
+        return 1984353346;
     }
 }
+

@@ -5,7 +5,7 @@
  * Time: 21:08
  */
 
-package pl.poligro.invoice_creator.payment.constant;
+package pl.poligro.invoice_creator.payment.domain;
 
 public enum PaymentMethod {
     CASH,
