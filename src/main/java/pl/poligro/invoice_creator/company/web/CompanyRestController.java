@@ -1,27 +1,30 @@
 /*
  * Copyright 2021 Marek Morawiec
  * User: marek
- * Date: 18.08.2021
- * Time: 18:52
+ * Date: 04.08.2021
+ * Time: 20:52
  */
 
-package pl.poligro.invoice_creator.company.application;
+package pl.poligro.invoice_creator.company.web;
 
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
-import pl.poligro.invoice_creator.company.application.port.CustomerUseCase;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import pl.poligro.invoice_creator.company.domain.Company;
 import pl.poligro.invoice_creator.company.infrastructure.CompanyRepository;
 
 import java.util.List;
 
-@Service
+@RestController
 @AllArgsConstructor
-class CustomerService implements CustomerUseCase {
+@RequestMapping("/companies")
+public class CompanyRestController {
+
     CompanyRepository companyRepository;
 
-    @Override
-    public List<Company> findAllCompanies() {
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<Company> getCompanies() {
         return companyRepository.findAll();
     }
 }

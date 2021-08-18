@@ -7,5 +7,11 @@
 
 package pl.poligro.invoice_creator.company.application.port;
 
+import pl.poligro.invoice_creator.company.domain.Company;
+
+import java.util.List;
+
 public interface CustomerUseCase {
+
+    List<Company> findAllCompanies();
 }
