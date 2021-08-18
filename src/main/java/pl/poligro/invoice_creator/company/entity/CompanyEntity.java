@@ -7,16 +7,38 @@
 
 package pl.poligro.invoice_creator.company.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
+import org.hibernate.Hibernate;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
 @Entity
-@Audited
-@EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Table(name = "COMPANY_CUSTOMER", schema = "B")
 public class CompanyEntity extends CustomerEntity {
-    String vatNumber;
+
+    @Audited
+    private String vatNumber;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        CompanyEntity that = (CompanyEntity) o;
+
+        return Objects.equals(getId(), that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return 1432171534;
+    }
 }

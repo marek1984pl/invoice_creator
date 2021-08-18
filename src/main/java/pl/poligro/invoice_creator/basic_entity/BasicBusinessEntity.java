@@ -7,11 +7,8 @@
 
 package pl.poligro.invoice_creator.basic_entity;
 
-import org.hibernate.envers.Audited;
-
 import javax.persistence.MappedSuperclass;
 
-@Audited
 @MappedSuperclass
 public abstract class BasicBusinessEntity extends BasicEntity {
 }
