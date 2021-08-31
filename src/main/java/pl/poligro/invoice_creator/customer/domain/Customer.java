@@ -13,7 +13,6 @@ import org.hibernate.envers.Audited;
 import pl.poligro.invoice_creator.basic_entity.BasicBusinessEntity;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.util.Objects;
 
 @Getter
@@ -21,7 +20,6 @@ import java.util.Objects;
 @ToString
 @RequiredArgsConstructor
 @Entity
-@Table(schema = "b")
 @Builder
 @AllArgsConstructor
 public class Customer extends BasicBusinessEntity {

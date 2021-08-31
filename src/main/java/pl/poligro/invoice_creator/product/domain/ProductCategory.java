@@ -12,7 +12,6 @@ import org.hibernate.envers.Audited;
 import pl.poligro.invoice_creator.basic_entity.BasicReferenceEntity;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 @Getter
 @Setter
@@ -21,7 +20,6 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(schema = "r")
 public class ProductCategory extends BasicReferenceEntity {
 
     @Audited

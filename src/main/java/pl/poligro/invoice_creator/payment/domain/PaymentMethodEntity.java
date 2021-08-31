@@ -15,7 +15,6 @@ import pl.poligro.invoice_creator.basic_entity.BasicReferenceEntity;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Table;
 import java.util.Objects;
 
 @Getter
@@ -24,7 +23,6 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Entity
 @Audited
-@Table(name = "PAYMENT_METHOD", schema = "R")
 public class PaymentMethodEntity extends BasicReferenceEntity {
 
     @Enumerated(EnumType.STRING)

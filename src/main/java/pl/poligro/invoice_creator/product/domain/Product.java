@@ -22,7 +22,6 @@ import java.math.RoundingMode;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(schema = "b")
 public class Product extends BasicBusinessEntity {
 
     @Audited
@@ -48,14 +47,14 @@ public class Product extends BasicBusinessEntity {
     private ProductCategory productCategory;
 
     public BigDecimal getNetPrice() {
-        return grossPrice.divide(getVatPercent().add(BigDecimal.ONE), RoundingMode.HALF_DOWN);
+        return grossPrice.setScale(2, RoundingMode.HALF_DOWN).divide(getVatPercent().add(BigDecimal.ONE), RoundingMode.HALF_DOWN);
     }
 
     public BigDecimal getVatAmount() {
-        return (grossPrice.multiply(getVatPercent()).divide(vat, RoundingMode.HALF_DOWN));
+        return grossPrice.multiply(getVatPercent()).divide(getVatPercent().add(BigDecimal.ONE), RoundingMode.HALF_DOWN).setScale(2, RoundingMode.HALF_DOWN);
     }
 
     private BigDecimal getVatPercent() {
-        return vat.divide(new BigDecimal("100"), RoundingMode.HALF_DOWN);
+        return vat.multiply(new BigDecimal("0.01").setScale(2, RoundingMode.HALF_DOWN));
     }
 }
