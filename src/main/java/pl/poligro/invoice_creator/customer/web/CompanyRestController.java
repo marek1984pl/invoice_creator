@@ -18,7 +18,6 @@ import pl.poligro.invoice_creator.customer.domain.Customer;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -34,10 +33,10 @@ public class CompanyRestController {
     }
 
     @GetMapping("/{id}")
-    // TODO: 30.08.2021 responseStatus
-    public Optional<Customer> getCompanyById(@PathVariable Long id) {
-        // TODO: 28.08.2021 fix this to throw exception
-        return customerUseCase.findById(id);
+    public ResponseEntity<Customer> getCompanyById(@PathVariable Long id) {
+        return customerUseCase.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
