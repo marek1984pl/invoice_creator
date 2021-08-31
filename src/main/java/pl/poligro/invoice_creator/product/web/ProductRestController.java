@@ -25,12 +25,19 @@ public class ProductRestController {
     private final ProductUseCase productUseCase;
 
     @GetMapping
-    public ResponseEntity<List<Product>> getProducts(@RequestParam Optional<String> category) {
+    public ResponseEntity<List<Product>> getProducts(@RequestParam Optional<String> category, @RequestParam Optional<String> name) {
         if (category.isPresent()) {
             Optional<ProductCategory> productCategory = productUseCase.getProductCategoryByName(category.get());
             return productCategory
                     .map(x -> ResponseEntity.ok(productUseCase.getAllProductsByProductCategory(x)))
                     .orElseGet(() -> ResponseEntity.notFound().build());
+        } else if (name.isPresent()) {
+            List<Product> productByName = productUseCase.getProductsByName(name.get());
+            if (productByName.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            } else {
+                return ResponseEntity.ok(productByName);
+            }
         }
         return ResponseEntity.ok(productUseCase.getAll());
     }

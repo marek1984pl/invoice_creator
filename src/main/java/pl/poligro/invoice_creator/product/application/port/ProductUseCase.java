@@ -28,6 +28,8 @@ public interface ProductUseCase {
 
     Product addProduct(ProductCommand command);
 
+    List<Product> getProductsByName(String name);
+
     @Data
     @Builder
     class ProductCommand {

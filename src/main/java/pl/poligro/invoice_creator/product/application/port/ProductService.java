@@ -58,4 +58,9 @@ class ProductService implements ProductUseCase {
 
         return productRepository.save(product);
     }
+
+    @Override
+    public List<Product> getProductsByName(String name) {
+        return productRepository.findByNameContainsIgnoreCase(name);
+    }
 }
