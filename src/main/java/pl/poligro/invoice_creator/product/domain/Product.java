@@ -43,6 +43,10 @@ public class Product extends BasicBusinessEntity {
     @Audited
     private boolean service;
 
+    @Audited
+    @OneToOne
+    private ProductCategory productCategory;
+
     public BigDecimal getNetPrice() {
         return grossPrice.divide(getVatPercent().add(BigDecimal.ONE), RoundingMode.HALF_DOWN);
     }

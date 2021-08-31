@@ -8,8 +8,9 @@
 package pl.poligro.invoice_creator.product.application.port;
 
 import lombok.Builder;
-import lombok.Value;
+import lombok.Data;
 import pl.poligro.invoice_creator.product.domain.Product;
+import pl.poligro.invoice_creator.product.domain.ProductCategory;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -21,9 +22,13 @@ public interface ProductUseCase {
 
     List<Product> getAll();
 
+    Optional<ProductCategory> getProductCategoryByName(String name);
+
+    List<Product> getAllProductsByProductCategory(ProductCategory productCategory);
+
     Product addProduct(ProductCommand command);
 
-    @Value
+    @Data
     @Builder
     class ProductCommand {
 
@@ -39,5 +44,7 @@ public interface ProductUseCase {
 
         @Builder.Default
         boolean service = false;
+
+        ProductCategory productCategory;
     }
 }

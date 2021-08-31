@@ -8,13 +8,14 @@
 package pl.poligro.invoice_creator.product.web;
 
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.poligro.invoice_creator.product.application.port.ProductUseCase;
 import pl.poligro.invoice_creator.product.domain.Product;
+import pl.poligro.invoice_creator.product.domain.ProductCategory;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -24,9 +25,14 @@ public class ProductRestController {
     private final ProductUseCase productUseCase;
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<Product> getAllProducts() {
-        return productUseCase.getAll();
+    public ResponseEntity<List<Product>> getProducts(@RequestParam Optional<String> category) {
+        if (category.isPresent()) {
+            Optional<ProductCategory> productCategory = productUseCase.getProductCategoryByName(category.get());
+            return productCategory
+                    .map(x -> ResponseEntity.ok(productUseCase.getAllProductsByProductCategory(x)))
+                    .orElseGet(() -> ResponseEntity.notFound().build());
+        }
+        return ResponseEntity.ok(productUseCase.getAll());
     }
 
     @GetMapping("/{id}")
