@@ -19,21 +19,21 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 class CustomerService implements CustomerUseCase {
-    CustomerRepository companyRepository;
+    CustomerRepository customerRepository;
 
     @Override
     public List<Customer> findAllCompanies() {
-        return companyRepository.findAll();
+        return customerRepository.findAll();
     }
 
     @Override
     public Optional<Customer> findById(Long id) {
-        return companyRepository.findById(id);
+        return customerRepository.findById(id);
     }
 
     @Override
-    public Customer addCompany(CreateCompanyCommand command) {
+    public Customer addCustomer(CreateCustomerCommand command) {
         Customer customer = command.toCustomer();
-        return companyRepository.save(customer);
+        return customerRepository.save(customer);
     }
 }

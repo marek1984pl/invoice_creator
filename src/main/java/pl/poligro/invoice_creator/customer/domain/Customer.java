@@ -22,6 +22,8 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Entity
 @Table(schema = "b")
+@Builder
+@AllArgsConstructor
 public class Customer extends BasicBusinessEntity {
 
     @Audited

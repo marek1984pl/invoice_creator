@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/customers")
-public class CompanyRestController {
+public class CustomerRestController {
 
     CustomerUseCase customerUseCase;
 
@@ -42,7 +42,7 @@ public class CompanyRestController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Customer> addCompany(@RequestBody RestCreateCompanyCommand command) {
-        Customer customer = customerUseCase.addCompany(command.toCreateCompanyCommand());
+        Customer customer = customerUseCase.addCustomer(command.toCreateCompanyCommand());
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/" + customer.getId().toString()).build().toUri();
         return ResponseEntity.created(uri).build();
     }
@@ -54,8 +54,8 @@ public class CompanyRestController {
         private String shortName;
         private String vatNumber;
 
-        public CustomerUseCase.CreateCompanyCommand toCreateCompanyCommand() {
-            return new CustomerUseCase.CreateCompanyCommand(fullName, shortName, vatNumber);
+        public CustomerUseCase.CreateCustomerCommand toCreateCompanyCommand() {
+            return new CustomerUseCase.CreateCustomerCommand(fullName, shortName, vatNumber);
         }
     }
 }

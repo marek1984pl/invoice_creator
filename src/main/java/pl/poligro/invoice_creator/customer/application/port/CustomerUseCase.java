@@ -7,6 +7,8 @@
 
 package pl.poligro.invoice_creator.customer.application.port;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 import pl.poligro.invoice_creator.customer.domain.Customer;
 
@@ -19,16 +21,23 @@ public interface CustomerUseCase {
 
     Optional<Customer> findById(Long id);
 
-    Customer addCompany(CreateCompanyCommand command);
+    Customer addCustomer(CreateCustomerCommand command);
 
     @Value
-    class CreateCompanyCommand {
+    @Builder
+    @AllArgsConstructor
+    class CreateCustomerCommand {
         String fullName;
         String shortName;
         String vat;
 
         public Customer toCustomer() {
-            return new Customer();
+            return Customer
+                    .builder()
+                    .fullName(fullName)
+                    .shortName(shortName)
+                    .vatNumber(vat)
+                    .build();
         }
     }
 }
