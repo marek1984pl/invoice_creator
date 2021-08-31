@@ -8,26 +8,34 @@
 package pl.poligro.invoice_creator.basic_entity;
 
 import lombok.*;
-import org.hibernate.Hibernate;
 import org.hibernate.envers.Audited;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Objects;
+import java.util.UUID;
 
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
 @MappedSuperclass
+@EqualsAndHashCode(of = "uuid")
+@EntityListeners(AuditingEntityListener.class)
 public abstract class BasicEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String uuid = UUID.randomUUID().toString();
+
+    @CreatedDate
     private LocalDateTime createdAt;
 
     @Audited
+    @LastModifiedDate
     private LocalDateTime updatedAt;
 
     private String createdBy;
@@ -35,27 +43,6 @@ public abstract class BasicEntity {
     @Audited
     private String updatedBy;
 
-    @PrePersist
-    void prePersist() {
-        createdAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    void preUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        BasicEntity that = (BasicEntity) o;
-
-        return Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return 236437056;
-    }
+    @Version
+    private long version;
 }
