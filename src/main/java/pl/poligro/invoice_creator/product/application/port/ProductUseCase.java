@@ -12,6 +12,7 @@ import lombok.Data;
 import pl.poligro.invoice_creator.product.domain.Product;
 import pl.poligro.invoice_creator.product.domain.ProductCategory;
 
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -26,22 +27,29 @@ public interface ProductUseCase {
 
     List<Product> getAllProductsByProductCategory(ProductCategory productCategory);
 
-    Product addProduct(ProductCommand command);
+    Product addProduct(AddProductCommand command);
 
     List<Product> getProductsByName(String name);
 
     @Data
     @Builder
-    class ProductCommand {
+    class AddProductCommand {
 
+        @NotBlank
         String name;
 
+        @NotBlank
         String shortName;
 
+        @NotBlank
         String unit;
 
+        @Positive
+        @NotNull
         BigDecimal grossPrice;
 
+        @PositiveOrZero
+        @NotNull
         BigDecimal vat;
 
         @Builder.Default

@@ -39,7 +39,7 @@ public class ApplicationStartup implements CommandLineRunner {
         ProductCategory tvCategory = new ProductCategory("TV");
         productCategoryRepository.save(tvCategory);
 
-        ProductUseCase.ProductCommand lgOled = ProductUseCase.ProductCommand
+        ProductUseCase.AddProductCommand lgOled = ProductUseCase.AddProductCommand
                 .builder()
                 .name("LG 55CX3LA 55 OLED 4K 120Hz WebOS Dolby Atmos HDMI 2.1")
                 .shortName("LG 55CX3LA")
@@ -49,7 +49,7 @@ public class ApplicationStartup implements CommandLineRunner {
                 .productCategory(tvCategory)
                 .build();
 
-        ProductUseCase.ProductCommand samsungOled = ProductUseCase.ProductCommand
+        ProductUseCase.AddProductCommand samsungOled = ProductUseCase.AddProductCommand
                 .builder()
                 .name("Samsung QE65Q70AAT 4K QLED HDR+ Smart TV")
                 .shortName("Samsung QE65Q70AAT")
@@ -59,7 +59,7 @@ public class ApplicationStartup implements CommandLineRunner {
                 .productCategory(tvCategory)
                 .build();
 
-        ProductUseCase.ProductCommand whirlpool = ProductUseCase.ProductCommand
+        ProductUseCase.AddProductCommand whirlpool = ProductUseCase.AddProductCommand
                 .builder()
                 .name("WHIRLPOOL FFB 7038 BV PL 7kg 1000 obr")
                 .shortName("WHIRLPOOL FFB 7038 BV")

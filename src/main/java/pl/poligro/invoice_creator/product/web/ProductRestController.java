@@ -10,10 +10,12 @@ package pl.poligro.invoice_creator.product.web;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.poligro.invoice_creator.global.web.CreatedURI;
 import pl.poligro.invoice_creator.product.application.port.ProductUseCase;
 import pl.poligro.invoice_creator.product.domain.Product;
 import pl.poligro.invoice_creator.product.domain.ProductCategory;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,6 +49,12 @@ public class ProductRestController {
         return productUseCase.getById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping
+    public ResponseEntity<Product> addProduct(@Valid @RequestBody ProductUseCase.AddProductCommand command) {
+        Product product = productUseCase.addProduct(command);
+        return ResponseEntity.created(CreatedURI.get(product)).build();
     }
 }
 

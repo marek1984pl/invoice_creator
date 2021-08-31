@@ -44,7 +44,7 @@ class ProductService implements ProductUseCase {
     }
 
     @Override
-    public Product addProduct(ProductCommand command) {
+    public Product addProduct(AddProductCommand command) {
         Product product = Product
                 .builder()
                 .name(command.getName())
